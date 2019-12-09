@@ -1,0 +1,57 @@
+$defaultDuration: .3s
+
+@mixin hideTapHighlightColor()
+	//Prevent highlight colour when element is tapped
+    -webkit-tap-highlight-color: rgba(0,0,0,0)
+
+@mixin hardwareAccel()
+	//Improve performance on mobile/tablet devices
+    transform: translateZ(0)
+
+@mixin improveAntiAlias()
+	//Improve aliasing on mobile/tablet devices
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0)
+
+.header
+    background-color: white
+    position: fixed
+    top: 0
+    left: 0
+    right: 0
+    height: 80px
+    display: flex
+    align-items: center
+    box-shadow: 0 0 25px 0 black
+    z-index: 999
+
+.header_img
+    height: 80px
+    margin-left: 40px
+
+header *
+    display: inline
+
+header li
+    margin: 20px
+
+header li a
+    color: black
+    text-decoration: none
+
+.hover
+    display: inline-block
+    transition-duration: .5s
+    transition-property: transform
+
+    @include hideTapHighlightColor()
+    @include hardwareAccel()
+    @include improveAntiAlias()
+
+    &:hover
+        transform: translateY(-6px)
+        animation-name: hover
+        animation-duration: 1.5s
+        animation-delay: $defaultDuration
+        animation-timing-function: linear
+        animation-iteration-count: infinite
+        animation-direction: alternate
