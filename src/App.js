@@ -4,6 +4,7 @@ import Header from './components/Header/Header'
 import Footer from './components/Footer/Footer'
 import Discover from './components/Body/Discover/Discover'
 import Search from './components/Body/Search/Search'
+import FilmInfo from './components/Body/FilmInfo/FilmInfo'
 
 const App = () => {
 	return (
@@ -16,6 +17,7 @@ const App = () => {
 				<Route path='/search'>
 					<Search />
 				</Route>
+				<Route path='/movie/:id' component={FilmInfo} />
 			</Switch>
 			<Footer />
 		</Router>

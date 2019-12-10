@@ -1,0 +1,60 @@
+$color: #02C39A
+.filminfo
+    display: flex
+    justify-content: center
+    align-items: center
+    margin-top: 80px
+    color: white
+    background-size: cover
+    flex-wrap: wrap
+
+@media screen and ( max-width: 600px )
+    .filminfo_card
+        flex-direction: column
+    .filminfo_card_info
+        min-height: 0px
+
+.filminfo_card
+    display: flex
+    border-radius: 0.2rem
+    width: 58rem
+    height: 38rem
+    margin: 40px 0
+    background: rgba(0, 0, 0, 0.85)
+
+.filminfo_card_img
+    max-height: 100%
+    object-fit: contain
+    margin-right: 1rem
+.filminfo_card_info
+    overflow-y: auto
+
+.filminfo_card_title
+    font-size: 2rem !important
+.filminfo_card_tagline
+    font-size: 1rem
+    color: $color
+
+.filminfo_card_overview
+    font-weight: lighter
+    margin-bottom: 3rem
+
+.filminfo_card_companies
+    display: block
+    font-size: 0.9rem
+    margin-bottom: 1.2rem
+.filminfo_card_genres
+    font-size: 1.5rem
+    color: $color
+.filminfo_card_additionaldetails
+    display: flex
+    flex-direction: row
+    flex-wrap: wrap
+
+.filminfo_card_additionaldetails div
+    flex: 0 50%
+    margin: 0.8rem 0
+.filminfo_card_additionaldetails span
+    display: block
+    color: $color
+    font-size: 1.5rem

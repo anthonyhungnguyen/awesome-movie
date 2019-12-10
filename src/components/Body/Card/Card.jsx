@@ -3,7 +3,7 @@ import './Card.sass'
 import { Link } from 'react-router-dom'
 import { Button } from 'grommet'
 
-const Card = ({ popularity, poster_path, title, released_date }) => {
+const Card = ({ id, poster_path, title }) => {
 	return (
 		<section className='card hover'>
 			<img
@@ -13,7 +13,7 @@ const Card = ({ popularity, poster_path, title, released_date }) => {
 			/>
 			<section className='card_body'>
 				<h1>{title}</h1>
-				<Link to='/movie/$:id'>
+				<Link to={`/movie/${id}`}>
 					<Button label='Read more' />
 				</Link>
 			</section>

@@ -34,4 +34,13 @@ router.get('/genres', (req, res, next) => {
 		.then(data => res.send(data))
 })
 
+router.post('/movie', (req, res, next) => {
+	const { id } = req.body
+	fetch(
+		`https://api.themoviedb.org/3/movie/${id}?api_key=c36cd33a7148f4910d540a389e049b76`
+	)
+		.then(response => response.json())
+		.then(data => res.send(data))
+})
+
 module.exports = router

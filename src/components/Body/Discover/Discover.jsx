@@ -17,10 +17,9 @@ const Discover = () => {
 			{discoverData &&
 				discoverData.map(d => (
 					<Card
-						popularity={d.popularity}
+						id={d.id}
 						poster_path={d.poster_path}
 						title={d.title}
-						released_date={d.released_date}
 						key={d.title}
 					/>
 				))}
