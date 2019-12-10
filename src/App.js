@@ -10,7 +10,7 @@ const App = () => {
 		<Router>
 			<Header />
 			<Switch>
-				<Route exact path='/discover'>
+				<Route exact path='/'>
 					<Discover />
 				</Route>
 				<Route path='/search'>
