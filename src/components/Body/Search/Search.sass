@@ -1,3 +1,26 @@
 .search
     margin-top: 80px
     padding: 40px
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+
+.search_result
+    display: flex
+    flex-wrap: wrap
+    justify-content: space-between
+
+@media screen and ( max-width: 600px)
+    .search_result
+        flex-direction: column
+
+.search_input
+    display: flex
+    flex-direction: row
+    flex-wrap: wrap
+    align-items: center
+    justify-content: center
+
+.search_input button
+    margin: 0.2rem 0.5rem

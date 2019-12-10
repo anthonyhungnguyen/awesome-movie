@@ -21,6 +21,7 @@ const Discover = () => {
 						poster_path={d.poster_path}
 						title={d.title}
 						released_date={d.released_date}
+						key={d.title}
 					/>
 				))}
 		</section>
