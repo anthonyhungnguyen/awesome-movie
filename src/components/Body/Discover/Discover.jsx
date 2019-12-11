@@ -1,18 +1,35 @@
 import React, { useEffect, useState } from 'react'
 import './Discover.sass'
 import Card from '../Card/Card'
+import Loader from 'react-loader-spinner'
 
 const Discover = () => {
 	const [discoverData, setDiscoverData] = useState([])
+	const [isLoading, setIsLoading] = useState(true)
 	useEffect(() => {
 		const fetchDiscoverData = async () => {
 			const response = await fetch('/api/discover')
 			const data = await response.json()
 			setDiscoverData(data.results)
+			setIsLoading(false)
 		}
 		fetchDiscoverData()
 	}, [])
-	return (
+	return isLoading ? (
+		<Loader
+			type='Puff'
+			color='#00BFFF'
+			height={50}
+			width={50}
+			style={{
+				width: '100%',
+				height: '100%',
+				display: 'flex',
+				justifyContent: 'center',
+				alignItems: 'center'
+			}}
+		/>
+	) : (
 		<section className='discover'>
 			{discoverData &&
 				discoverData.map(d => (

@@ -136,14 +136,24 @@ const Search = () => {
 					color='#00BFFF'
 					height={50}
 					width={50}
-					timeout={3000} //3 secs
-					style={{ marginTop: '1rem' }}
+					style={{
+						width: '100%',
+						height: '100%',
+						display: 'flex',
+						justifyContent: 'center',
+						alignItems: 'center'
+					}}
 				/>
 			) : (
 				<section className='search_result'>
 					{searchResultList &&
 						searchResultList.map(d => (
-							<Card title={d.title} poster_path={d.poster_path} key={d.title} />
+							<Card
+								id={d.id}
+								title={d.title}
+								poster_path={d.poster_path}
+								key={d.title}
+							/>
 						))}
 				</section>
 			)}

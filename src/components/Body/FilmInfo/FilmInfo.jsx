@@ -103,7 +103,7 @@ const FilmInfo = () => {
 					/>
 				)}
 
-				<section className='filminfo_card_info'>
+				<section className='filminfo_card_info col'>
 					<h1 className='filminfo_card_title'>{original_title}</h1>
 					<h2 className='filminfo_card_tagline'>{tagline}</h2>
 					<p className='filminfo_card_overview'>{overview}</p>
