@@ -3,10 +3,8 @@ $color: #02C39A
     display: flex
     justify-content: center
     align-items: center
-    height: 100%
     color: white
     background-size: cover
-    overflow: auto
     margin-top: 80px
 
 @media screen and (min-width: 900px)
@@ -20,23 +18,10 @@ $color: #02C39A
         grid-template-columns: repeat(1, 1fr)
         width: 24rem !important
         margin-bottom: 1rem
-        margin-top: 100%
     .filminfo_card_img
         margin: auto
         width: 100%
         max-height: none !important
-        margin-top: 50%
-
-@media screen and ( max-width: 375px )
-    .filminfo_card
-        grid-template-rows: repeat(2, 1fr)
-        grid-template-columns: repeat(1, 1fr)
-        margin-top: 20vh
-        width: 22rem !important
-        height: 39rem
-    .filminfo_card_img
-        max-width: 100%
-        margin: auto
 
 .filminfo_card
     display: grid
