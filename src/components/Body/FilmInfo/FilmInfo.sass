@@ -7,22 +7,25 @@ $color: #02C39A
     color: white
     background-size: cover
     overflow: auto
+    margin-top: 80px
 
 @media screen and (min-width: 900px)
     .filminfo_card
         grid-template-columns: repeat(2, 1fr)
+        height: 90%
 
 @media screen and ( max-width: 900px )
     .filminfo_card
         grid-template-rows: repeat(2, 1fr)
         grid-template-columns: repeat(1, 1fr)
-        margin-top: 20vh
         width: 24rem !important
-        height: 65rem
+        margin-bottom: 1rem
+        margin-top: 100%
     .filminfo_card_img
         margin: auto
         width: 100%
         max-height: none !important
+        margin-top: 50%
 
 @media screen and ( max-width: 375px )
     .filminfo_card
@@ -42,8 +45,7 @@ $color: #02C39A
     background: rgba(0, 0, 0, 0.85)
 
 .filminfo_card_info
-    overflow: auto
-    padding: 1rem
+    padding: 0 1rem
 
 .filminfo_card_img
     max-height: 100%
