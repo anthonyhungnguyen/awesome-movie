@@ -60,12 +60,12 @@ const Discover = () => {
 			<ReactPaginate
 				previousLabel={'<'}
 				nextLabel={'>'}
-				breakLabel={'...'}
+				breakLabel={'..'}
 				breakClassName={'break-me'}
 				initialPage={state.currentPage}
 				pageCount={20}
-				marginPagesDisplayed={2}
-				pageRangeDisplayed={3}
+				marginPagesDisplayed={1}
+				pageRangeDisplayed={2}
 				onPageChange={handleOnPageChange}
 				containerClassName={'pagination'}
 				subContainerClassName={'pages pagination'}

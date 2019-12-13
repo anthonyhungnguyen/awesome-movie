@@ -9,24 +9,27 @@ import ReactPaginate from 'react-paginate'
 
 const Search = () => {
 	const [state, dispatch] = useStoreValue()
-	const [movieName, setMovieName] = useState(state.currentSearch)
 	const [searchResultList, setSearchResultList] = useState([])
-	const [year] = useState(state.currentYear)
 	const [sortByList] = useState(state.sortByList)
-	const [sortBy] = useState(state.currentSortBy)
 	const [genres, setGenres] = useState([])
-	const [genre] = useState(state.currentGenre)
 	const [isLoading, setIsLoading] = useState(true)
 
 	useEffect(() => {
 		const fetchMovies = async () => {
+			const {
+				currentSearch,
+				currentGenre,
+				currentSortBy,
+				currentYear,
+				currentSearchPage
+			} = state
 			await axios
 				.post('/api/search', {
-					movieName: movieName,
-					year: year,
-					genre: genre.id,
-					sortBy: sortBy.id,
-					page: state.currentSearchPage
+					movieName: currentSearch,
+					year: currentYear,
+					genre: currentGenre.id,
+					sortBy: currentSortBy.id,
+					page: currentSearchPage
 				})
 				.then(response => response.data)
 				.then(data => {
@@ -105,13 +108,21 @@ const Search = () => {
 		})
 	}
 
+	const {
+		currentSearch,
+		currentGenre,
+		currentSortBy,
+		currentYear,
+		currentSearchPage
+	} = state
+
 	return (
 		<section className='search'>
 			<section className='search_input'>
 				<Select
 					name='yearSelect'
 					options={['', ...generateYear()]}
-					value={year}
+					value={currentYear}
 					onChange={handleOnChange}
 					placeholder='Pick year'
 				/>
@@ -120,7 +131,7 @@ const Search = () => {
 					options={Object.keys(sortByList).map(
 						(key, index) => sortByList[key]['name']
 					)}
-					value={sortBy.name}
+					value={currentSortBy.name}
 					onChange={handleOnChange}
 					placeholder='Sort by'
 				/>
@@ -130,7 +141,7 @@ const Search = () => {
 						options={Object.keys(genres).map(
 							(key, index) => genres[key]['name']
 						)}
-						value={genre.name}
+						value={currentGenre.name}
 						onChange={handleOnChange}
 						placeholder='Genres'
 					/>
@@ -144,9 +155,8 @@ const Search = () => {
 								type: 'changeSearch',
 								payload: e.target.value
 							})
-							setMovieName(e.target.value)
 						}}
-						value={movieName}
+						value={currentSearch}
 					/>
 				</Form>
 			</section>
@@ -176,14 +186,14 @@ const Search = () => {
 							/>
 						))}
 					<ReactPaginate
-						previousLabel={'previous'}
-						nextLabel={'next'}
-						breakLabel={'...'}
+						previousLabel={'<'}
+						nextLabel={'>'}
+						breakLabel={'..'}
 						breakClassName={'break-me'}
-						initialPage={state.currentPage}
+						initialPage={currentSearchPage}
 						pageCount={20}
-						marginPagesDisplayed={2}
-						pageRangeDisplayed={5}
+						marginPagesDisplayed={1}
+						pageRangeDisplayed={2}
 						onPageChange={handleOnPageChange}
 						containerClassName={'pagination'}
 						subContainerClassName={'pages pagination'}
