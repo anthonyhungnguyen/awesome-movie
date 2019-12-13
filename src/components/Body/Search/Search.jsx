@@ -5,6 +5,7 @@ import Card from '../Card/Card'
 import { Form, TextInput, Select } from 'grommet'
 import Loader from 'react-loader-spinner'
 import { useStoreValue } from '../../../reducers/Store'
+import ReactPaginate from 'react-paginate'
 
 const Search = () => {
 	const [state, dispatch] = useStoreValue()
@@ -15,17 +16,17 @@ const Search = () => {
 	const [sortBy] = useState(state.currentSortBy)
 	const [genres, setGenres] = useState([])
 	const [genre] = useState(state.currentGenre)
-	const [isLoading, setIsLoading] = useState(false)
+	const [isLoading, setIsLoading] = useState(true)
 
 	useEffect(() => {
-		setIsLoading(true)
 		const fetchMovies = async () => {
 			await axios
 				.post('/api/search', {
 					movieName: movieName,
 					year: year,
 					genre: genre.id,
-					sortBy: sortBy.id
+					sortBy: sortBy.id,
+					page: state.currentSearchPage
 				})
 				.then(response => response.data)
 				.then(data => {
@@ -95,6 +96,13 @@ const Search = () => {
 			default:
 				return
 		}
+	}
+
+	const handleOnPageChange = e => {
+		dispatch({
+			type: 'changeSearchPage',
+			payload: e.selected + 1
+		})
 	}
 
 	return (
@@ -167,6 +175,20 @@ const Search = () => {
 								key={d.id}
 							/>
 						))}
+					<ReactPaginate
+						previousLabel={'previous'}
+						nextLabel={'next'}
+						breakLabel={'...'}
+						breakClassName={'break-me'}
+						initialPage={state.currentPage}
+						pageCount={20}
+						marginPagesDisplayed={2}
+						pageRangeDisplayed={5}
+						onPageChange={handleOnPageChange}
+						containerClassName={'pagination'}
+						subContainerClassName={'pages pagination'}
+						activeClassName={'active'}
+					/>
 				</section>
 			)}
 		</section>

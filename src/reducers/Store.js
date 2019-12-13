@@ -3,7 +3,8 @@ import React, { createContext, useReducer, useContext } from 'react'
 const StoreContext = createContext(null)
 
 const initialState = {
-	currentPage: 1,
+	currentDiscoverPage: 1,
+	currentSearchPage: 1,
 	currentSearch: '',
 	currentGenre: { id: 28, name: 'Action' },
 	currentSortBy: { id: 'popularity.desc', name: 'Popularity Descending' },
@@ -22,10 +23,16 @@ const initialState = {
 
 const reducer = (state, action) => {
 	switch (action.type) {
-		case 'changePage':
+		case 'changeSearchPage':
 			return {
 				...state,
-				currentPage: action.payload
+				currentSearchPage: action.payload
+			}
+
+		case 'changeDiscoverPage':
+			return {
+				...state,
+				currentDiscoverPage: action.payload
 			}
 		case 'changeSearch':
 			return {
