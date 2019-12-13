@@ -4,27 +4,17 @@ import './Search.sass'
 import Card from '../Card/Card'
 import { Form, TextInput, Select } from 'grommet'
 import Loader from 'react-loader-spinner'
+import { useStoreValue } from '../../../reducers/Store'
 
 const Search = () => {
-	const [movieName, setMovieName] = useState('')
+	const [state, dispatch] = useStoreValue()
+	const [movieName, setMovieName] = useState(state.currentSearch)
 	const [searchResultList, setSearchResultList] = useState([])
-	const [year, setYear] = useState('')
-	const [sortByList] = useState([
-		{ id: 'popularity.desc', name: 'Popularity Descending' },
-		{ id: 'popularity.asc', name: 'Popularity Ascending' },
-		{ id: 'vote_average.desc', name: 'Rating Descending' },
-		{ id: 'vote_average.asc', name: 'Rating Ascending' },
-		{ id: 'release_date.desc', name: 'Released Date Descending' },
-		{ id: 'release_date.asc', name: 'Release Date Ascending' },
-		{ id: 'original_title.desc', name: 'Title (A-Z)' },
-		{ id: 'original_title.asc', name: 'Title (Z-A)' }
-	])
-	const [sortBy, setSortBy] = useState({
-		id: 'popularity.desc',
-		name: 'Popularity Descending'
-	})
+	const [year] = useState(state.currentYear)
+	const [sortByList] = useState(state.sortByList)
+	const [sortBy] = useState(state.currentSortBy)
 	const [genres, setGenres] = useState([])
-	const [genre, setGenre] = useState({ id: 28, name: 'Action' })
+	const [genre] = useState(state.currentGenre)
 	const [isLoading, setIsLoading] = useState(false)
 
 	useEffect(() => {
@@ -51,15 +41,16 @@ const Search = () => {
 		}
 		getGenres()
 		fetchMovies()
-	}, [year, genre, sortBy, movieName])
+	}, [state])
 
 	const handleOnSubmit = async e => {
+		const { currentSearch, currentGenre, currentSortBy, currentYear } = state
 		e.preventDefault()
 		const response = await axios.post('/api/search', {
-			movieName: movieName,
-			year: year,
-			genre: genre.id,
-			sortBy: sortBy.id
+			movieName: currentSearch,
+			year: currentYear,
+			genre: currentGenre.id,
+			sortBy: currentSortBy.id
 		})
 		const data = await response.data
 		setSearchResultList(data.results)
@@ -76,15 +67,30 @@ const Search = () => {
 	const handleOnChange = e => {
 		switch (e.target.name) {
 			case 'yearSelect':
-				setYear(e.option)
+				dispatch({
+					type: 'changeYear',
+					payload: e.option
+				})
 				break
 			case 'sortBySelect':
 				let sortId = sortByList.filter(d => d.name === e.option)[0].id
-				setSortBy({ id: sortId, name: e.option })
+				dispatch({
+					type: 'changeSortBy',
+					payload: {
+						id: sortId,
+						name: e.option
+					}
+				})
 				break
 			case 'genreSelect':
 				let genreId = genres.filter(d => d.name === e.option)[0].id
-				setGenre({ id: genreId, name: e.option })
+				dispatch({
+					type: 'changeGenre',
+					payload: {
+						id: genreId,
+						name: e.option
+					}
+				})
 				break
 			default:
 				return
@@ -125,7 +131,13 @@ const Search = () => {
 					<TextInput
 						name='searchChange'
 						placeholder='search movie here...'
-						onChange={e => setMovieName(e.target.value)}
+						onChange={e => {
+							dispatch({
+								type: 'changeSearch',
+								payload: e.target.value
+							})
+							setMovieName(e.target.value)
+						}}
 						value={movieName}
 					/>
 				</Form>
@@ -152,7 +164,7 @@ const Search = () => {
 								id={d.id}
 								title={d.title}
 								poster_path={d.poster_path}
-								key={d.title}
+								key={d.id}
 							/>
 						))}
 				</section>
